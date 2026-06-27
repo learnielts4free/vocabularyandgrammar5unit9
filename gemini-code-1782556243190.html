@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Kiểm Tra Tương Tác - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Quicksand:wght=500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --secondary-color: #FDCB6E;
+            --accent-color: #00C9A7;
+            --correct-color: #00D26A;
+            --wrong-color: #FF4757;
+            --text-dark: #2D3436;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', 'Nunito', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #8854C0, #FDCB6E, #00C9A7, #FF7675);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite;
+            position: relative;
+            padding: 20px 10px;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.18;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M12 12l2 2-2 2-2-2zm20 8c2 0 3-1 3-3s-1-3-3-3-3 1-3 3 1 3 3 3zm15 5l2 3 3 2-3 2-2 3-2-3-3-2 3-2zm-6 20c1.5 0 2.5-1 2.5-2.5S32.5 30 31 30s-2.5 1-2.5 2.5 1 2.5 2.5 2.5zM10 45l2 2-2 2-2-2z'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='10' cy='50' r='3'/%3E%3C/g%3E%3C/svg%3E");
+            animation: floatingPattern 25s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatingPattern {
+            from { background-position: 0 0; }
+            to { background-position: 600px 600px; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.1);
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .alert-box {
+            background: #FFEAA7;
+            border: 3px solid #FDCB6E;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 0 #E17055;
+            text-align: center;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .alert-title {
+            color: #D63031;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 900;
+        }
+
+        .section-title {
+            background: #FF7675;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 15px;
+            margin: 25px 0 12px 0;
+            display: inline-block;
+            font-weight: 900;
+            box-shadow: 0 4px 0 #D63031;
+            font-size: 1.1rem;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media(min-width: 576px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 15px;
+            padding: 12px 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 0 #E2E8F0;
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #CBD5E1;
+            background-color: #F8FAFC;
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #CBD5E1;
+        }
+
+        .option-btn.correct {
+            background-color: var(--correct-color) !important;
+            color: white !important;
+            border-color: #00B359 !important;
+            box-shadow: 0 4px 0 #00803F !important;
+        }
+
+        .option-btn.wrong {
+            background-color: var(--wrong-color) !important;
+            color: white !important;
+            border-color: #E11D48 !important;
+            box-shadow: 0 4px 0 #9F1239 !important;
+        }
+
+        .option-btn.disabled {
+            pointer-events: none;
+        }
+
+        .explanation-box {
+            margin-top: 15px;
+            background: #F8FAFC;
+            border-left: 6px solid var(--primary-color);
+            border-radius: 0 15px 15px 0;
+            padding: 15px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            display: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .explanation-box.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .exp-section {
+            margin-bottom: 8px;
+        }
+
+        .exp-title {
+            font-weight: 700;
+            color: #1E293B;
+            border-bottom: 1px dashed #CBD5E1;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .exp-highlight {
+            color: #2563EB;
+            font-weight: 700;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .submit-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .btn-submit {
+            background: #FF7675;
+            color: white;
+            border: none;
+            padding: 14px 45px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #D63031;
+            transition: all 0.1s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #D63031;
+        }
+
+        .btn-submit:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #D63031;
+        }
+
+        .result-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 460px;
+            width: 90%;
+            text-align: center;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        .result-score {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .result-comment {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn-close-result {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #00A387;
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h2>Giáo viên tạo: Ms Lê Hằng English</h2>
+        </header>
+
+        <div class="alert-box">
+            <span class="alert-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</span>
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <span style="color: #00C9A7; display:block; margin-top:5px;">* Kéo tới đâu, làm tới đó! *</span>
+        </div>
+
+        <div id="quiz-container">
+            <!-- Dữ liệu được sinh tự động hóa bằng Javascript -->
+        </div>
+
+        <div class="submit-container">
+            <button type="button" class="btn-submit" onclick="gradeEntireQuiz()">NỘP BÀI</button>
+        </div>
+    </div>
+
+    <div class="result-overlay" id="result-modal">
+        <div class="result-content">
+            <div class="result-score" id="score-text">0/0</div>
+            <div class="result-comment" id="comment-text"></div>
+            <button class="btn-close-result" onclick="closeResultModal()">Xem lại bài học</button>
+        </div>
+    </div>
+
+    <script>
+        // --- HỆ THỐNG PHÁT ÂM THANH SỬ DỤNG WEB AUDIO API ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'correct') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            } else {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+                osc.frequency.linearRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.25);
+            }
+        }
+
+        // --- CƠ SỞ DỮ LIỆU ĐỀ BÀI (100% TOÀN VẸN KHÔNG CẮT BỚT BẤT KỲ CÂU NÀO) ---
+        const quizData = [
+            // EXERCISE 4
+            {
+                id: 1,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "Mark has used the laptop ________ three hours ________ 10 o'clock.",
+                options: [
+                    { text: "A. since / for", isCorrect: false },
+                    { text: "B. for / since", isCorrect: true },
+                    { text: "C. for / for", isCorrect: false },
+                    { text: "D. since / since", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Mark đã sử dụng chiếc máy tính xách tay được ba tiếng đồng hồ, kể từ lúc 10 giờ.",
+                    options: "Xem xét bản chất của hai trạng từ chỉ thời gian: 'three hours' và '10 o'clock'.",
+                    reason: "- Chỗ trống thứ nhất: 'three hours' là một khoảng thời gian (khoảng 3 tiếng) nên đi liền sau 'for'.<br>- Chỗ trống thứ hai: '10 o'clock' là một mốc thời gian xác định (lúc 10 giờ) nên đi liền sau 'since'. Do đó, phương án đúng là 'for / since'.",
+                    wrongReason: "Các đáp án khác đặt sai vị trí hoặc dùng sai quy định mốc/khoảng thời gian của ngữ pháp hiện tại hoàn thành."
+                }
+            },
+            {
+                id: 2,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "How many times have you read the book ________ you bought it?",
+                options: [
+                    { text: "A. for", isCorrect: false },
+                    { text: "B. since", isCorrect: true },
+                    { text: "C. from", isCorrect: false },
+                    { text: "D. when", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Bạn đã đọc cuốn sách này bao nhiêu lần kể từ khi bạn mua nó?",
+                    options: "A. for (khoảng); B. since (kể từ khi); C. from (từ); D. when (khi).",
+                    reason: "Mệnh đề 'you bought it' (bạn đã mua nó) được chia ở thì Quá khứ đơn, đóng vai trò là một mốc thời gian sự kiện trong quá khứ. Theo quy tắc của thì hiện tại hoàn thành, liên từ đứng trước mệnh đề quá khứ đơn làm điểm khởi đầu phải luôn là 'since'.",
+                    wrongReason: "for không đi trực tiếp với mệnh đề; from và when không phối hợp đúng cấu trúc chuẩn của hiện tại hoàn thành trong trường hợp này."
+                }
+            },
+            {
+                id: 3,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "Mary hasn't eaten fish ________ Thursday.",
+                options: [
+                    { text: "A. for", isCorrect: false },
+                    { text: "B. since", isCorrect: true },
+                    { text: "C. till", isCorrect: false },
+                    { text: "D. ago", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Mary đã không ăn cá kể từ ngày thứ Năm.",
+                    options: "A. for + khoảng thời gian; B. since + mốc thời gian; C. till (cho đến khi); D. ago (trước đây).",
+                    reason: "'Thursday' (thứ Năm) là một ngày cụ thể, một mốc thời gian cố định rõ ràng. Do đó, ta phải chọn giới từ 'since'.",
+                    wrongReason: "for dùng cho khoảng thời gian đếm được; ago chỉ đứng cuối câu trong thì quá khứ đơn."
+                }
+            },
+            {
+                id: 4,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "We've known each other ________ ages.",
+                options: [
+                    { text: "A. since", isCorrect: false },
+                    { text: "B. during", isCorrect: false },
+                    { text: "C. for", isCorrect: true },
+                    { text: "D. in", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chúng mình đã quen biết nhau từ lâu lắm rồi / từ nhiều thế kỷ qua rồi.",
+                    options: "A. since; B. during; C. for; D. in.",
+                    reason: "Danh từ số nhiều 'ages' trong thành ngữ chỉ thời gian mang nghĩa là một khoảng thời gian rất dài, ròng rã nhiều năm trời. Vì nó là một khoảng dài, ta bắt buộc phải sử dụng cụm từ cố định 'for ages' (từ lâu lắm rồi).",
+                    wrongReason: "since ages là sai vì ages không phải một điểm mốc thời gian đơn lẻ cố định."
+                }
+            },
+            {
+                id: 5,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "My sister has owned the fashion shop ________ 3 years.",
+                options: [
+                    { text: "A. since", isCorrect: false },
+                    { text: "B. for", isCorrect: true },
+                    { text: "C. during", isCorrect: false },
+                    { text: "D. before", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chị gái tớ đã sở hữu cửa hàng thời trang này được 3 năm rồi.",
+                    options: "A. since; B. for; C. during; D. before.",
+                    reason: "'3 years' (3 năm) là số lượng đo độ dài của một khoảng thời gian có số đếm rõ ràng -> Sử dụng giới từ 'for' là chuẩn ngữ pháp.",
+                    wrongReason: "since chỉ đi với mốc cụ thể như mốc năm 2021 chứ không đi với số lượng năm gom lại."
+                }
+            },
+            {
+                id: 6,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "It's three years ________ Trang started learning English.",
+                options: [
+                    { text: "A. for", isCorrect: false },
+                    { text: "B. when", isCorrect: false },
+                    { text: "C. since", isCorrect: true },
+                    { text: "D. from", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Đã ba năm trôi qua kể từ khi Trang bắt đầu học tiếng Anh.",
+                    options: "Cấu trúc thời gian: It is + thời gian + since + S + V2/ed.",
+                    reason: "Đây là cấu trúc viết lại câu rất phổ biến của cấu trúc hiện tại hoàn thành: 'It is / It's + khoảng thời gian + since + mệnh đề quá khứ đơn'. Do đó, từ cần điền là 'since'.",
+                    wrongReason: "Các phó từ khác không nằm trong công thức nhấn mạnh khoảng thời gian trôi qua này."
+                }
+            },
+            {
+                id: 7,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "Peter and Linda have been married ________ a year.",
+                options: [
+                    { text: "A. since", isCorrect: false },
+                    { text: "B. for", isCorrect: true },
+                    { text: "C. during", isCorrect: false },
+                    { text: "D. from", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Peter và Linda đã kết hôn được một năm rồi.",
+                    options: "A. since; B. for; C. during; D. from.",
+                    reason: "'a year' (một năm) tương đương với một khoảng thời gian dài 12 tháng, đóng vai trò khoảng thời gian chứ không phải mốc -> Chọn 'for'.",
+                    wrongReason: "since không đi với số lượng thời gian kéo dài mang tính bao quát như 'a year'."
+                }
+            },
+            {
+                id: 8,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "She has been to Paris ________ a week.",
+                options: [
+                    { text: "A. since", isCorrect: false },
+                    { text: "B. in", isCorrect: false },
+                    { text: "C. for", isCorrect: true },
+                    { text: "D. ago", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cô ấy đã đến và ở Paris được một tuần rồi.",
+                    options: "A. since; B. in; C. for; D. ago.",
+                    reason: "'a week' (một tuần) là khoảng thời gian kéo dài 7 ngày -> Sử dụng giới từ 'for' theo đúng quy tắc chỉ thời lượng hành động.",
+                    wrongReason: "since yêu cầu một mốc ngày cụ thể; ago sai thì ngữ pháp."
+                }
+            },
+            {
+                id: 9,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "He has stayed here ________ three days.",
+                options: [
+                    { text: "A. since", isCorrect: false },
+                    { text: "B. for", isCorrect: true },
+                    { text: "C. from", isCorrect: false },
+                    { text: "D. into", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Anh ấy đã ở lại đây được ba ngày.",
+                    options: "A. since; B. for; C. from; D. into.",
+                    reason: "'three days' (ba ngày) là một khoảng thời gian tích lũy rõ rệt -> Ta điền giới từ 'for'.",
+                    wrongReason: "since đi với thứ trong tuần chứ không đi với tổng số ngày gom lại."
+                }
+            },
+            {
+                id: 10,
+                section: "Exercise 4: Fill in the blanks with 'since' or 'for'.",
+                question: "I have worked as a teacher ________ 2018.",
+                options: [
+                    { text: "A. for", isCorrect: false },
+                    { text: "B. since", isCorrect: true },
+                    { text: "C. in", isCorrect: false },
+                    { text: "D. from", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ đã làm giáo viên kể từ năm 2018.",
+                    options: "A. for; B. since; C. in; D. from.",
+                    reason: "Mốc năm cụ thể '2018' là dấu mốc thời gian bắt đầu chính xác của hành động làm nghề giáo -> Bắt buộc dùng 'since' trong thì hiện tại hoàn thành.",
+                    wrongReason: "for 2018 là sai nghĩa (trong vòng 2018 năm); giới từ 'in' chỉ dùng với năm nếu câu nằm ở thì quá khứ đơn."
+                }
+            },
+
+            // EXERCISE 5
+            {
+                id: 11,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "There ________ a lot of changes in Vietnam since the 1990s. (be)",
+                options: [
+                    { text: "A. has been", isCorrect: false },
+                    { text: "B. have been", isCorrect: true },
+                    { text: "C. was", isCorrect: false },
+                    { text: "D. were", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Đã có rất nhiều sự thay đổi ở Việt Nam kể từ những năm 1990.",
+                    options: "A. dạng số ít hiện tại hoàn thành; B. dạng số nhiều hiện tại hoàn thành; C, D. dạng quá khứ đơn.",
+                    reason: "Sự xuất hiện của 'since the 1990s' yêu cầu chia thì Hiện tại hoàn thành. Cấu trúc 'There + have/has been + Noun'. Vì danh từ trung tâm đằng sau là 'a lot of changes' (rất nhiều sự thay đổi - số nhiều) nên ta chọn trợ động từ số nhiều 'have been'.",
+                    wrongReason: "has been sai hòa hợp số ít/nhiều; was và were sai hệ thời gian do cấu trúc có liên từ since."
+                }
+            },
+            {
+                id: 12,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "There is no more cheese. I ________ it all, I'm afraid. (eat)",
+                options: [
+                    { text: "A. have eaten", isCorrect: true },
+                    { text: "B. ate", isCorrect: false },
+                    { text: "C. has eaten", isCorrect: false },
+                    { text: "D. had eaten", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Không còn chút phô mai nào nữa đâu. Tớ e là tớ đã ăn hết sạch nó rồi.",
+                    options: "A. hiện tại hoàn thành ngôi I; B. quá khứ đơn; C. ngôi số ít; D. quá khứ hoàn thành.",
+                    reason: "Sự việc ăn hết phô mai diễn ra trong quá khứ không rõ mốc thời gian cụ thể, nhưng để lại kết quả ảnh hưởng trực tiếp đến hiện tại là 'There is no more cheese' (Hiện tại không còn miếng nào). Do đó chia thì Hiện tại hoàn thành: I + have + V3(eaten) -> 'have eaten'.",
+                    wrongReason: "Các phương án khác chia sai thì hoặc sai ngôi chủ ngữ 'I'."
+                }
+            },
+            {
+                id: 13,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "It'll soon get warm in here. I ________ the heating on. (turn)",
+                options: [
+                    { text: "A. turned", isCorrect: false },
+                    { text: "B. has turned", isCorrect: false },
+                    { text: "C. have turned", isCorrect: true },
+                    { text: "D. am turning", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Trong này sẽ sớm ấm lên thôi. Tớ đã bật lò sưởi lên rồi.",
+                    options: "A. quá khứ đơn; B. ngôi số ít; C. hiện tại hoàn thành ngôi I; D. hiện tại tiếp diễn.",
+                    reason: "Hành động bật sưởi vừa mới xảy ra và hệ quả kéo theo trực tiếp ở tương lai gần/hiện tại là phòng sắp ấm lên ('It'll soon get warm') -> Chia Hiện tại hoàn thành: I + have turned.",
+                    wrongReason: "turned đơn thuần kể sự việc cũ; has turned sai chủ từ; am turning chỉ đang làm ngay lúc nói không sinh kết quả hoàn tất."
+                }
+            },
+            {
+                id: 14,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "The bill isn't right. They ________ a mistake. (make)",
+                options: [
+                    { text: "A. made", isCorrect: false },
+                    { text: "B. have made", isCorrect: true },
+                    { text: "C. has made", isCorrect: false },
+                    { text: "D. are making", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Hóa đơn này không đúng rồi. Họ đã phạm phải một sai lầm.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số nhiều; C. số ít; D. tiếp diễn.",
+                    reason: "Hành động làm sai hóa đơn đã xảy ra và hậu quả hiển hiện ở hiện tại là tờ hóa đơn đang bị sai ('The bill isn't right'). Hành động quá khứ có hệ quả hiện tại -> Chia Hiện tại hoàn thành: They + have made.",
+                    wrongReason: "made chỉ hành động cắt đứt quá khứ; has made sai hòa hợp chủ từ số nhiều 'They'."
+                }
+            },
+            {
+                id: 15,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "I ________ Andrew and he says he ________ about half of the plan. (just see) (already do)",
+                options: [
+                    { text: "A. saw / did", isCorrect: false },
+                    { text: "B. have just seen / has already done", isCorrect: true },
+                    { text: "C. just saw / already did", isCorrect: false },
+                    { text: "D. has just seen / have already done", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ vừa mới gặp Andrew và cậu ấy nói rằng cậu ấy đã hoàn thành được khoảng một nửa kế hoạch rồi.",
+                    options: "Phối hợp vị trí trạng từ 'just' và 'already' trong cấu trúc hiện tại hoàn thành.",
+                    reason: "Các trạng từ 'just' (vừa mới) và 'already' (đã... rồi) là các dấu hiệu đặc trưng nằm bên trong cấu trúc Hiện tại hoàn thành (đứng giữa trợ động từ và V3).<br>- Vế 1: S là 'I' -> 'have just seen'.<br>- Vế 2: S là 'he' -> 'has already done'. Do đó câu B chính xác tuyệt đối.",
+                    wrongReason: "A và C chia sai thì; D đảo lộn sai quy tắc hòa hợp ngữ pháp của trợ động từ số ít/nhiều."
+                }
+            },
+            {
+                id: 16,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "She ________ any fun for a long time. (not/ have)",
+                options: [
+                    { text: "A. didn't have", isCorrect: false },
+                    { text: "B. hasn't had", isCorrect: true },
+                    { text: "C. haven't had", isCorrect: false },
+                    { text: "D. doesn't have", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cô ấy đã không có chút niềm vui nào trong một khoảng thời gian dài rồi.",
+                    options: "A. quá khứ đơn phủ định; B. hiện tại hoàn thành phủ định số ít; C. số nhiều; D. hiện tại đơn.",
+                    reason: "Dấu hiệu thời gian kéo dài 'for a long time' (trong một thời gian dài) yêu cầu chia thì Hiện tại hoàn thành ở dạng phủ định. Chủ ngữ 'She' là ngôi thứ ba số ít nên đi với 'hasn't had' (với had là V3 của động từ have chính).",
+                    wrongReason: "didn't have sai thì; haven't had sai chủ từ số ít."
+                }
+            },
+            {
+                id: 17,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "You ________ your project yet, I suppose. (not/do)",
+                options: [
+                    { text: "A. didn't do", isCorrect: false },
+                    { text: "B. hasn't done", isCorrect: false },
+                    { text: "C. haven't done", isCorrect: true },
+                    { text: "D. don't do", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ đoán là bạn vẫn chưa hoàn thành dự án của mình đâu đúng không.",
+                    options: "A. quá khứ đơn; B. ngôi số ít; C. hiện tại hoàn thành phủ định ngôi You; D. hiện tại đơn.",
+                    reason: "Từ phủ định 'yet' đứng cuối câu là dấu hiệu bắt buộc của thì Hiện tại hoàn thành ở thể phủ định. Chủ ngữ 'You' đi với trợ động từ số nhiều 'haven't' + V3 của do là done -> 'haven't done'.",
+                    wrongReason: "Các lựa chọn khác sai quy tắc bám sát từ nhận biết 'yet'."
+                }
+            },
+            {
+                id: 18,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "Don't you want to see this programme? It ________. (start)",
+                options: [
+                    { text: "A. started", isCorrect: false },
+                    { text: "B. has started", isCorrect: true },
+                    { text: "C. is starting", isCorrect: false },
+                    { text: "D. have started", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Bạn không muốn xem chương trình này à? Nó đã bắt đầu chiếu rồi đấy.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số ít; C. hiện tại tiếp diễn; D. số nhiều.",
+                    reason: "Hành động chương trình bắt đầu chiếu đã diễn ra và hệ quả kéo theo trực tiếp ở hiện tại là chương trình đang chạy trên tivi ngay lúc rủ rê này -> Chia Hiện tại hoàn thành. Chủ từ 'It' số ít đi với 'has started'.",
+                    wrongReason: "started chưa nhấn mạnh tính hệ quả hiện tại; is starting chỉ đang bắt đầu ngay tích tắc; have started sai chủ ngữ."
+                }
+            },
+            {
+                id: 19,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "My son ________ English since he was a young man. (study)",
+                options: [
+                    { text: "A. studied", isCorrect: false },
+                    { text: "B. has studied", isCorrect: true },
+                    { text: "C. have studied", isCorrect: false },
+                    { text: "D. is studying", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Con trai tớ đã học tiếng Anh kể từ khi nó còn là một thanh niên.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số ít; C. số nhiều; D. hiện tại tiếp diễn.",
+                    reason: "Mệnh đề chứa liên từ 'since + mệnh đề quá khứ đơn' (since he was a young man) là cấu trúc chuẩn mực đòi hỏi mệnh đề chính phía trước phải được chia ở thì Hiện tại hoàn thành. 'My son' số ít -> 'has studied'.",
+                    wrongReason: "Các đáp án khác vi phạm cấu trúc phối thì của liên từ 'since'."
+                }
+            },
+            {
+                id: 20,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "My brother ________ his car repaired since I left him. (not have)",
+                options: [
+                    { text: "A. didn't have", isCorrect: false },
+                    { text: "B. hasn't had", isCorrect: true },
+                    { text: "C. haven't had", isCorrect: false },
+                    { text: "D. hasn't have", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Anh trai tớ đã không đem xe ô tô đi sửa kể từ khi tớ rời khỏi cậu ấy.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành phủ định chuẩn; C. số nhiều; D. sai dạng V3.",
+                    reason: "Phía sau có 'since + mệnh đề quá khứ đơn' -> Mệnh đề chính chia Hiện tại hoàn thành dạng phủ định. Chủ ngữ 'My brother' số ít đi với 'hasn't' + V3 của động từ gốc have là had -> 'hasn't had'.",
+                    wrongReason: "hasn't have sai vì từ 'have' cuối cùng chưa biến đổi về dạng phân từ hai (V3)."
+                }
+            },
+            {
+                id: 21,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "This is the first time that I ever ________ this kind of food. (eat)",
+                options: [
+                    { text: "A. ate", isCorrect: false },
+                    { text: "B. have ever eaten", isCorrect: true },
+                    { text: "C. was eating", isCorrect: false },
+                    { text: "D. had ever eaten", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Đây là lần đầu tiên tớ từng ăn loại thức ăn đặc biệt này.",
+                    options: "Cấu trúc trải nghiệm số lần: This is the first time + Hiện tại hoàn thành.",
+                    reason: "Công thức ngữ pháp cố định: 'This is the first time + S + have/has + ever + V3/ed'. Trạng từ ever đứng chen giữa. Chủ từ 'I' đi với 'have ever eaten' (với eaten là V3 của eat).",
+                    wrongReason: "Các phương án khác chia sai thì đơn hoặc quá khứ hoàn thành không đúng cấu trúc nhấn mạnh lần đầu ở hiện tại này."
+                }
+            },
+            {
+                id: 22,
+                section: "Exercise 5: Put in the present perfect of the verbs in brackets.",
+                question: "My friends ________ since it started to rain. (drink)",
+                options: [
+                    { text: "A. drank", isCorrect: false },
+                    { text: "B. have drunk", isCorrect: true },
+                    { text: "C. has drunk", isCorrect: false },
+                    { text: "D. were drinking", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Bạn bè của tớ đã ngồi uống nước/rượu kể từ khi trời bắt đầu đổ mưa.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số nhiều; C. số ít; D. quá khứ tiếp diễn.",
+                    reason: "Mệnh đề sau 'since' chia quá khứ đơn ('since it started to rain') đóng vai trò mốc hành động nền -> Mệnh đề trước since chia Hiện tại hoàn thành. Chủ từ 'My friends' số nhiều đi với 'have drunk'.",
+                    wrongReason: "drank sai công thức phối thì; has drunk sai hòa hợp số ít/nhiều của danh từ số nhiều friends."
+                }
+            },
+
+            // EXERCISE 6
+            {
+                id: 23,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "I ________ these shoes since my eighteenth birthday. (have)",
+                options: [
+                    { text: "A. had", isCorrect: false },
+                    { text: "B. have had", isCorrect: true },
+                    { text: "C. has had", isCorrect: false },
+                    { text: "D. am having", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ đã có/sở hữu đôi giày này kể từ sinh nhật lần thứ 18 của mình.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành ngôi I; C. ngôi số ít; D. tiếp diễn.",
+                    reason: "Có liên từ 'since' đi kèm một mốc thời gian sự kiện quá khứ ('my eighteenth birthday') -> Hành động kéo dài từ quá khứ kéo tận đến nay nên chia thì Hiện tại hoàn thành: I + have had.",
+                    wrongReason: "had chỉ dùng cho việc đôi giày hiện tại không còn nữa; am having không dùng với động từ trạng thái sở hữu 'have' trong văn cảnh này."
+                }
+            },
+            {
+                id: 24,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "We ________ in Newcastle for three years now and like it a lot. (live)",
+                options: [
+                    { text: "A. lived", isCorrect: false },
+                    { text: "B. have lived", isCorrect: true },
+                    { text: "C. live", isCorrect: false },
+                    { text: "D. are living", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chúng tớ đã sống ở Newcastle được 3 năm tính đến nay và cực kỳ thích nơi này.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số nhiều; C. hiện tại đơn; D. tiếp diễn.",
+                    reason: "Cụm từ phối hợp 'for three years now' (được ba năm tính đến thời điểm hiện tại) chứng tỏ hành động sống bắt đầu từ quá khứ và vẫn đang tiếp diễn ở hiện tại -> chia thì Hiện tại hoàn thành: We + have lived.",
+                    wrongReason: "Lived (quá khứ đơn) chỉ dùng khi hiện tại nhóm bạn không còn sống ở Newcastle nữa, mâu thuẫn hoàn toàn với mệnh đề hiện tại 'and like it a lot'."
+                }
+            },
+            {
+                id: 25,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "The last time I ________ to Brighton was in August. (go)",
+                options: [
+                    { text: "A. have gone", isCorrect: false },
+                    { text: "B. went", isCorrect: true },
+                    { text: "C. had gone", isCorrect: false },
+                    { text: "D. go", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lần cuối cùng tớ đi đến Brighton là vào tháng Tám.",
+                    options: "Cấu trúc chỉ lần cuối: The last time + S + Quá khứ đơn + was + mốc thời gian.",
+                    reason: "Cấu trúc cố định nhấn mạnh một sự kiện riêng lẻ cuối cùng đã chấm dứt hoàn toàn trong quá khứ: 'The last time + S + V2/ed'. Quá khứ đơn của động từ 'go' là từ bất quy tắc 'went'.",
+                    wrongReason: "have gone vi phạm quy tắc mốc thời gian cô lập của cụm cấu trúc 'The last time'."
+                }
+            },
+            {
+                id: 26,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "When my parents were on holiday, I ________ with my grandparents for two weeks. (stay)",
+                options: [
+                    { text: "A. have stayed", isCorrect: false },
+                    { text: "B. stayed", isCorrect: true },
+                    { text: "C. was staying", isCorrect: false },
+                    { text: "D. stay", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Khi bố mẹ tớ đi nghỉ mát (trong quá khứ), tớ đã ở chung với ông bà nội ngoại trong vòng hai tuần.",
+                    options: "A. hiện tại hoàn thành; B. quá khứ đơn; C. quá khứ tiếp diễn; D. hiện tại đơn.",
+                    reason: "Mặc dù có cụm 'for two weeks', nhưng toàn bộ bối cảnh hành động này nằm trọn vẹn bên trong một khoảng thời gian đã kết thúc hoàn toàn trong quá khứ, được định vị bằng mệnh đề quá khứ đơn 'When my parents were on holiday'. Do đó sự việc ở chung này đã chấm dứt -> Chia Quá khứ đơn 'stayed'.",
+                    wrongReason: "have stayed sai vì hành động không còn kéo dài hay để lại hệ quả nào đến thời điểm hiện tại nữa."
+                }
+            },
+            {
+                id: 27,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "I ________ Rachel for ages. She ________ us since July. (not see) (not visit)",
+                options: [
+                    { text: "A. didn't see / didn't visit", isCorrect: false },
+                    { text: "B. haven't seen / hasn't visited", isCorrect: true },
+                    { text: "C. haven't seen / didn't visit", isCorrect: false },
+                    { text: "D. wasn't seeing / hasn't visited", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ đã không gặp Rachel từ lâu lắm rồi. Cậu ấy đã không đến thăm chúng tớ kể từ tháng Bảy.",
+                    options: "Phân tích trạng từ chỉ dấu hiệu hiện tại hoàn thành ở cả hai vế.",
+                    reason: "- Vế 1: Có cụm từ 'for ages' (đã lâu rồi) -> chia Hiện tại hoàn thành ngôi I: 'haven't seen'.<br>- Vế 2: Có cụm từ 'since July' (kể từ tháng 7) -> chia Hiện tại hoàn thành ngôi số ít She: 'hasn't visited'. Do đó phương án B chính xác tuyệt đối.",
+                    wrongReason: "Các phương án khác kết hợp sai lệch thì quá khứ đơn vào ngữ cảnh có trạng từ kéo dài của hiện tại hoàn thành."
+                }
+            },
+            {
+                id: 28,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "Martin ________ to Greek five times. He loves the place. (be)",
+                options: [
+                    { text: "A. went", isCorrect: false },
+                    { text: "B. has been", isCorrect: true },
+                    { text: "C. have been", isCorrect: false },
+                    { text: "D. was", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Martin đã từng đến Hy Lạp năm lần rồi. Anh ấy cực kỳ yêu thích nơi đó.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số ít; C. số nhiều; D. tobe quá khứ đơn.",
+                    reason: "Diễn tả số lần trải nghiệm nghiệm chứng bản thân tính đến thời điểm hiện tại ('five times' - 5 lần) và vế sau khẳng định cảm xúc hiện tại 'He loves the place' -> chia thì Hiện tại hoàn thành. Cấu trúc đi đến đâu rồi quay về: 'have/has been to'. Martin số ít -> 'has been'.",
+                    wrongReason: "went và was cắt đứt quá khứ không chỉ ra tính tích lũy số lần; have been sai chủ từ."
+                }
+            },
+            {
+                id: 29,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "I ________ for a computer company for a year. That was after college. (work)",
+                options: [
+                    { text: "A. have worked", isCorrect: false },
+                    { text: "B. worked", isCorrect: true },
+                    { text: "C. am working", isCorrect: false },
+                    { text: "D. had worked", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tớ đã từng làm việc cho một công ty máy tính trong vòng một năm. Đó là khoảng thời gian sau khi tốt nghiệp đại học.",
+                    options: "A. hiện tại hoàn thành; B. quá khứ đơn; C. hiện tại tiếp diễn; D. quá khứ hoàn thành.",
+                    reason: "Mặc dù có cụm 'for a year', câu văn tiếp theo khẳng định định vị thời gian cô lập rõ ràng: 'That was after college' (Đó đã là chuyện sau khi rời đại học). Hiện tại người nói không còn làm ở đó nữa, hành động đã chấm dứt hoàn toàn trong quá khứ -> chia Quá khứ đơn 'worked'.",
+                    wrongReason: "have worked sai vì hành động công việc này không liên quan hay kéo dài đến thời điểm hiện tại của người nói."
+                }
+            },
+            {
+                id: 30,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "We ________ here in 1993. We ________ here a long time now. (move) (be)",
+                options: [
+                    { text: "A. moved / have been", isCorrect: true },
+                    { text: "B. have moved / were", isCorrect: false },
+                    { text: "C. moved / were", isCorrect: false },
+                    { text: "D. have moved / have been", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chúng tớ đã chuyển đến đây vào năm 1993. Tính đến nay chúng tớ đã ở đây được một khoảng thời gian dài rồi.",
+                    options: "Phân tích mốc thời gian quá khứ đóng và mốc kéo dài ở hiện tại.",
+                    reason: "- Vế 1: Có mốc năm chính xác trong quá khứ 'in 1993' -> chia thì Quá khứ đơn -> 'moved'.<br>- Vế 2: Có cụm từ 'a long time now' (bây giờ đã là một thời gian dài) nghĩa là hành động ở đây kéo dài duy trì đến hiện tại -> chia Hiện tại hoàn thành -> 'have been'. Chọn phương án A.",
+                    wrongReason: "Các phương án khác chia đảo lộn sai bản chất thời gian của mốc năm cố định và mốc kéo dài."
+                }
+            },
+            {
+                id: 31,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "It isn't a very good party. Most people ________ home. (already/ go)",
+                options: [
+                    { text: "A. already went", isCorrect: false },
+                    { text: "B. have already gone", isCorrect: true },
+                    { text: "C. has already gone", isCorrect: false },
+                    { text: "D. are already going", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Đây không phải là một bữa tiệc vui lắm. Hầu hết mọi người đều đã đi về nhà rồi.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số nhiều; C. số ít; D. tiếp diễn.",
+                    reason: "Trạng từ 'already' kết hợp với ngữ cảnh hệ quả hiện tại 'It isn't a very good party' (Bây giờ không khí bữa tiệc đang tẻ nhạt vì người ta bỏ về) -> chia Hiện tại hoàn thành. Chủ từ 'Most people' (Hầu hết mọi người) là danh từ số nhiều -> 'have already gone'.",
+                    wrongReason: "already went chưa thể hiện rõ nét hệ quả hiện tại; has already gone sai hòa hợp số ít với danh từ số nhiều people."
+                }
+            },
+            {
+                id: 32,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "It was so hot today that I ________ shorts and a T-shirt at work. (wear)",
+                options: [
+                    { text: "A. have worn", isCorrect: false },
+                    { text: "B. wore", isCorrect: true },
+                    { text: "C. wear", isCorrect: false },
+                    { text: "D. am wearing", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Hôm nay trời nóng nực đến mức tớ đã mặc quần đùi và áo thun khi đi làm.",
+                    options: "A. hiện tại hoàn thành; B. quá khứ đơn; C. hiện tại đơn; D. tiếp diễn.",
+                    reason: "Mệnh đề trước chia ở thì quá khứ đơn làm gốc bối cảnh sự việc rõ ràng: 'It was so hot today'. Hành động mặc đồ diễn ra và kết thúc gắn liền với mốc thời gian nóng nực đó trong ngày -> Chia thì Quá khứ đơn của động từ wear là từ bất quy tắc 'wore'.",
+                    wrongReason: "have worn không khớp với hệ trục thời gian quá khứ đơn 'was' đã được xác định trước của câu."
+                }
+            },
+            {
+                id: 33,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "My wife and I ________ three times since we ________ married. (move) (get)",
+                options: [
+                    { text: "A. moved / got", isCorrect: false },
+                    { text: "B. have moved / got", isCorrect: true },
+                    { text: "C. have moved / have gotten", isCorrect: false },
+                    { text: "D. moved / have gotten", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Vợ chồng tớ đã chuyển nhà ba lần kể từ khi chúng tớ kết hôn.",
+                    options: "Quy tắc phối thì thời cốt lõi xung quanh liên từ kết nối 'since'.",
+                    reason: "Theo cấu trúc phối thì chuẩn mực với liên từ 'since': Mệnh đề chính đứng trước since diễn tả số lần tích lũy chia ở thì Hiện tại hoàn thành ('have moved' do chủ ngữ số nhiều My wife and I). Mệnh đề đi ngay sau giới từ/liên từ 'since' đóng vai trò mốc thời gian luôn chia ở thì Quá khứ đơn ('got'). Do đó câu B đúng.",
+                    wrongReason: "Các phương án khác vi phạm nghiêm trọng quy tắc chia thì trước và sau từ kết nối 'since'."
+                }
+            },
+            {
+                id: 34,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "So far this week there ________ three burglaries on our street. (be)",
+                options: [
+                    { text: "A. were", isCorrect: false },
+                    { text: "B. have been", isCorrect: true },
+                    { text: "C. has been", isCorrect: false },
+                    { text: "D. are", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tính cho đến thời điểm này trong tuần, đã có ba vụ trộm xảy ra trên con phố của chúng tôi.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số nhiều; C. số ít; D. hiện tại đơn.",
+                    reason: "Trạng ngữ 'So far this week' (Cho đến nay trong tuần này) là dấu hiệu độc quyền bắt buộc câu phải chia thì Hiện tại hoàn thành. Cấu trúc 'there + have/has been'. Vì danh từ đằng sau 'three burglaries' (3 vụ trộm) là số nhiều nên chọn 'have been'.",
+                    wrongReason: "were sai trạng ngữ; has been sai quy tắc hòa hợp số ít/nhiều với danh từ burglaries số nhiều."
+                }
+            },
+            {
+                id: 35,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "When I was younger, I ________ badminton for my local team. (play)",
+                options: [
+                    { text: "A. have played", isCorrect: false },
+                    { text: "B. played", isCorrect: true },
+                    { text: "C. was playing", isCorrect: false },
+                    { text: "D. play", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Khi tớ còn trẻ, tớ đã chơi cầu lông cho đội tuyển của địa phương.",
+                    options: "A. hiện tại hoàn thành; B. quá khứ đơn; C. quá khứ tiếp diễn; D. hiện tại đơn.",
+                    reason: "Mệnh đề thời gian cố định 'When I was younger' xác định một giai đoạn tuổi thơ đã chấm dứt hoàn toàn, không liên quan đến hiện tại. Hành động thói quen cũ nằm trong giai đoạn này chia thì Quá khứ đơn -> 'played'.",
+                    wrongReason: "have played sai vì người nói hiện tại không còn ở độ tuổi trẻ tuổi thơ này nữa, sự việc đã kết thúc."
+                }
+            },
+            {
+                id: 36,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "In the past few years, it ________ more and more difficult to get into university. (become)",
+                options: [
+                    { text: "A. became", isCorrect: false },
+                    { text: "B. has become", isCorrect: true },
+                    { text: "C. is becoming", isCorrect: false },
+                    { text: "D. have become", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Trong vài năm trở lại đây, việc đỗ vào đại học ngày càng trở nên khó khăn hơn.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành số ít; C. hiện tại tiếp diễn; D. số nhiều.",
+                    reason: "Cụm trạng ngữ chỉ tiến trình thời gian kéo dài liên tục đến nay: 'In the past few years' (Trong vài năm qua) là dấu hiệu nhận biết của thì Hiện tại hoàn thành. Chủ ngữ giả số ít 'it' đi với 'has become'.",
+                    wrongReason: "became sai trạng ngữ; have become sai hòa hợp chủ từ ngôi số ít 'it'."
+                }
+            },
+            {
+                id: 37,
+                section: "Exercise 6: Put the present perfect or past simple of the verbs in brackets.",
+                question: "This book is so long that I ________ it yet. (not finish)",
+                options: [
+                    { text: "A. didn't finish", isCorrect: false },
+                    { text: "B. haven't finished", isCorrect: true },
+                    { text: "C. hasn't finished", isCorrect: false },
+                    { text: "D. don't finish", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cuốn sách này dài đến mức tớ vẫn chưa đọc xong nó nữa.",
+                    options: "A. quá khứ đơn; B. hiện tại hoàn thành phủ định chuẩn ngôi I; C. ngôi số ít; D. hiện tại đơn.",
+                    reason: "Từ nhận biết 'yet' nằm ở cuối câu phủ định khẳng định câu phải được chia ở thì Hiện tại hoàn thành. Chủ ngữ 'I' đi kèm dạng phủ định 'haven't finished'.",
+                    wrongReason: "Các hình thức chia thì còn lại hoàn toàn lệch cấu trúc chuẩn đi kèm phó từ nhận biết 'yet'."
+                }
+            },
+
+            // EXERCISE 7
+            {
+                id: 38,
+                section: "Exercise 7: Mark the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+                question: "When the teacher called on me to answer the question, my mind “<u>went blank</u>” and I couldn't remember anything.",
+                options: [
+                    { text: "A. went empty", isCorrect: true },
+                    { text: "B. became unfocused", isCorrect: false },
+                    { text: "C. turned blush", isCorrect: false },
+                    { text: "D. became exhausted", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Khi thầy giáo gọi tớ đứng lên trả lời câu hỏi, đầu óc tớ trống rỗng và tớ chẳng thể nhớ nổi điều gì.",
+                    options: "A. went empty: trở nên trống rỗng; B. mất tập trung; C. đỏ mặt ngượng ngùng; D. kiệt sức.",
+                    reason: "Thành ngữ 'went blank' chỉ trạng thái đầu óc đột ngột trống rỗng, không thể suy nghĩ hay nhớ ra thông tin gì do căng thẳng. Cụm từ đồng nghĩa sát nhất là 'went empty' (trở nên trống rỗng).",
+                    wrongReason: "Các từ khác mô tả trạng thái sức khỏe hoặc sự thiếu tập trung, không lột tả được hiện tượng quên sạch thông tin đột ngột."
+                }
+            },
+            {
+                id: 39,
+                section: "Exercise 7: Mark the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+                question: "The wedding ceremony was filled with “<u>touching moments</u>”, especially when the bride and groom exchanged their vows.",
+                options: [
+                    { text: "A. moving moments", isCorrect: true },
+                    { text: "B. moved feelings", isCorrect: false },
+                    { text: "C. worrying feelings", isCorrect: false },
+                    { text: "D. lucky moments", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lễ cưới tràn ngập những khoảnh khắc cảm động, đặc biệt là khi cô dâu và chú rể trao nhau lời thề nguyện.",
+                    options: "A. moving moments: những khoảnh khắc cảm động lay động tâm can; B. cảm xúc bị tác động; C. cảm giác lo lắng; D. khoảnh khắc may mắn.",
+                    reason: "Tính từ 'touching' dùng để mô tả sự vật, sự kiện có tính chất gây xúc động, làm lay động tình cảm người xem. Tính từ 'moving' đồng nghĩa hoàn toàn trong ngữ cảnh bổ nghĩa cho danh từ chỉ khoảnh khắc 'moments'.",
+                    wrongReason: "moved là tính từ đuôi -ed dùng cho cảm xúc con người, không dùng bổ nghĩa trực tiếp đứng trước danh từ chỉ vật như 'moments' trong cấu trúc này."
+                }
+            },
+            {
+                id: 40,
+                section: "Exercise 7: Mark the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+                question: "He memorized the poem “<u>by rote</u>”, but he couldn't explain its meaning.",
+                options: [
+                    { text: "A. thinkingly", isCorrect: false },
+                    { text: "B. mindfully", isCorrect: false },
+                    { text: "C. by heart", isCorrect: true },
+                    { text: "D. by accident", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cậu ấy đã ghi nhớ bài thơ bằng cách học vẹt/học thuộc lòng, nhưng cậu ấy không thể giải thích được ý nghĩa của nó.",
+                    options: "A. một cách có suy nghĩ; B. một cách tỉnh thức; C. by heart: thuộc lòng, nhập tâm; D. vô tình, ngẫu nhiên.",
+                    reason: "Cụm từ 'by rote' nghĩa là học vẹt, học thuộc lòng một cách máy móc. Xét trong 4 đáp án, hành động ghi nhớ 'by heart' (thuộc lòng) là gần nghĩa nhất về mặt chức năng ghi nhớ bài học không cần nhìn sách.",
+                    wrongReason: "Các trạng từ còn lại mang nghĩa đối lập hoàn toàn hoặc lệch hướng ngữ cảnh học tập."
+                }
+            },
+            {
+                id: 41,
+                section: "Exercise 7: Mark the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+                question: "The children love to “<u>explore</u>” the woods behind their house.",
+                options: [
+                    { text: "A. test", isCorrect: false },
+                    { text: "B. tour", isCorrect: false },
+                    { text: "C. learn about", isCorrect: true },
+                    { text: "D. hunt for", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lũ trẻ rất thích khám phá/tìm hiểu khu rừng ở phía sau ngôi nhà của chúng.",
+                    options: "A. kiểm tra; B. đi tham quan vòng quanh; C. learn about: tìm hiểu, học hỏi về; D. săn lùng.",
+                    reason: "Động từ 'explore' nghĩa là đi lại, thám hiểm, khám phá một khu vực nhằm mục đích hiểu biết, học hỏi thông tin về nơi đó. Do đó, 'learn about' (tìm hiểu về) phản ánh sát nhất bản chất ý nghĩa hành động.",
+                    wrongReason: "test là kiểm tra chất lượng; tour là đi du lịch định sẵn; hunt for là săn bắt thú rừng hoặc tìm kiếm vật bị mất."
+                }
+            },
+            {
+                id: 42,
+                section: "Exercise 7: Mark the letter A, B, C, or D to indicate the word(s) CLOSEST in meaning to the underlined word(s) in each of the following questions.",
+                question: "She “<u>grew up</u>” in a small town, but always dreamed of living in a big city.",
+                options: [
+                    { text: "A. stayed up", isCorrect: false },
+                    { text: "B. became much stronger", isCorrect: false },
+                    { text: "C. got up", isCorrect: false },
+                    { text: "D. became more mature", isCorrect: true }
+                ],
+                explanation: {
+                    translation: "Cô ấy đã lớn lên/trưởng thành ở một thị trấn nhỏ, nhưng luôn mơ ước được sống ở một thành phố lớn.",
+                    options: "A. thức khuya; B. trở nên khỏe mạnh hơn; C. thức dậy; D. became more mature: trở nên trưởng thành hơn.",
+                    reason: "Cụm động từ 'grew up' (quá khứ của grow up) nghĩa là lớn lên, trưởng thành theo thời gian từ một đứa trẻ thành người lớn. Nó đồng nghĩa với quá trình sinh học và tâm lý 'became more mature' (trở nên trưởng thành, chín chắn hơn).",
+                    wrongReason: "Các cụm từ khác chỉ hành động sinh hoạt hàng ngày (thức khuya, ngủ dậy) hoặc thể chất cơ bắp."
+                }
+            },
+
+            // EXERCISE 8
+            {
+                id: 43,
+                section: "Exercise 8: Mark the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+                question: "The view from the mountaintop was absolutely “<u>amazing</u>”, taking our breath away.",
+                options: [
+                    { text: "A. exhilarating", isCorrect: false },
+                    { text: "B. underwhelming", isCorrect: true },
+                    { text: "C. marvelous", isCorrect: false },
+                    { text: "D. breathtaking", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Tầm nhìn từ đỉnh núi hoàn toàn tuyệt vời, khiến chúng tôi kinh ngạc đến nín thở.",
+                    options: "Tìm từ TRÁI NGHĨA. A. phấn khích; B. underwhelming: tẻ nhạt, không ấn tượng, dưới mức kỳ vọng; C. kỳ diệu; D. đẹp đến nín thở.",
+                    reason: "Tính từ 'amazing' mang ý nghĩa vô cùng kinh ngạc, tuyệt vời, ấn tượng mạnh mẽ. Từ đối lập, trái nghĩa hoàn toàn với nó là 'underwhelming' mang nghĩa nhạt nhòa, tẻ nhạt, gây thất vọng vì không có gì đặc sắc.",
+                    wrongReason: "A, C, D đều là các tính từ mang nghĩa tích cực, đồng nghĩa hoặc cận nghĩa với từ gốc (loại vì đề yêu cầu tìm từ TRÁI NGHĨA)."
+                }
+            },
+            {
+                id: 44,
+                section: "Exercise 8: Mark the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+                question: "It was an “<u>embarrassing</u>” moment when I tripped and fell in front of everyone.",
+                options: [
+                    { text: "A. shameful", isCorrect: false },
+                    { text: "B. memorable", isCorrect: false },
+                    { text: "C. happy", isCorrect: true },
+                    { text: "D. underwhelming", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Đó đã là một khoảnh khắc ngượng ngùng xấu hổ khi tớ vấp ngã trước mặt mọi người.",
+                    options: "Tìm từ TRÁI NGHĨA. A. hổ thẹn; B. đáng nhớ; C. happy: vui vẻ, hạnh phúc; D. không ấn tượng.",
+                    reason: "Tính từ 'embarrassing' chỉ trạng thái ngượng ngùng, xấu hổ, bối rối tiêu cực trước đám đông. Trong các phương án, tính từ mang sắc thái cảm xúc tích cực, dễ chịu đối lập lại cảm giác ngượng ngùng đó là 'happy' (vui vẻ, hạnh phúc).",
+                    wrongReason: "shameful là cận nghĩa tiêu cực; các từ khác không tạo thành trục đối lập cảm xúc rõ rệt cho sự cố vấp ngã."
+                }
+            },
+            {
+                id: 45,
+                section: "Exercise 8: Mark the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+                question: "Due to the “<u>lack of</u>” planning, our camping trip turned into a bit of a disaster.",
+                options: [
+                    { text: "A. plenty of", isCorrect: true },
+                    { text: "B. failure to plan", isCorrect: false },
+                    { text: "C. shortage of", isCorrect: false },
+                    { text: "D. absence of", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Do thiếu hụt sự lên kế hoạch, chuyến cắm trại của chúng tôi đã biến thành một chút thảm họa.",
+                    options: "Tìm từ TRÁI NGHĨA. A. plenty of: nhiều, dồi dào, dư dả; B. thất bại; C. sự khan hiếm; D. sự vắng bóng.",
+                    reason: "Cụm từ 'lack of' nghĩa là sự thiếu thốn, không có đủ số lượng cần thiết. Từ trái nghĩa trực tiếp với thiếu thốn là sự dư dả, dồi dào, có rất nhiều -> cụm từ 'plenty of' (nhiều, dồi dào).",
+                    wrongReason: "shortage of và absence of là các cụm từ đồng nghĩa, cận nghĩa mang tính chất tiêu cực (loại)."
+                }
+            },
+            {
+                id: 46,
+                section: "Exercise 8: Mark the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+                question: "Our graduation ceremony was a “<u>memorable</u>” experience that we'll cherish forever.",
+                options: [
+                    { text: "A. unpleasant", isCorrect: false },
+                    { text: "B. experienced", isCorrect: false },
+                    { text: "C. unremarkable", isCorrect: true },
+                    { text: "D. amazing", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Lễ tốt nghiệp của chúng tôi là một trải nghiệm đáng nhớ mà chúng tôi sẽ trân trọng mãi mãi.",
+                    options: "Tìm từ TRÁI NGHĨA. A. khó chịu; B. có kinh nghiệm; C. unremarkable: bình thường, mờ nhạt, không có gì đáng chú ý; D. kinh ngạc.",
+                    reason: "Tính từ 'memorable' nghĩa là đáng nhớ, vô cùng đặc sắc nổi bật khiến người ta nhớ mãi. Từ trái nghĩa hoàn hảo của nó là 'unremarkable' nghĩa là tầm thường, nhạt nhòa, không có gì nổi bật để đáng được chú ý hay ghi nhớ.",
+                    wrongReason: "unpleasant phản ánh tính chất gây khó chịu; amazing là đồng nghĩa tích cực."
+                }
+            },
+            {
+                id: 47,
+                section: "Exercise 8: Mark the letter A, B, C, or D to indicate the word(s) OPPOSITE in meaning to the underlined word(s) in each of the following questions.",
+                question: "The smell of rotten food created an “<u>unpleasant</u>” atmosphere in the kitchen.",
+                options: [
+                    { text: "A. delightful", isCorrect: true },
+                    { text: "B. disagreeable", isCorrect: false },
+                    { text: "C. memorable", isCorrect: false },
+                    { text: "D. exhilarating", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Mùi thức ăn ôi thiu đã tạo nên một bầu không khí khó chịu bên trong căn bếp.",
+                    options: "Tìm từ TRÁI NGHĨA. A. delightful: dễ chịu, ngọt ngào, tuyệt vời; B. đáng ghét; C. đáng nhớ; D. hồ hởi phấn khích.",
+                    reason: "Tính từ 'unpleasant' mang nghĩa là khó chịu, kinh khủng, không thoải mái. Từ đối lập trái nghĩa trực tiếp mang lại cảm giác dễ chịu, thích thú, thơm tho ngọt ngào cho bầu không khí là 'delightful'.",
+                    wrongReason: "disagreeable là từ đồng nghĩa tiêu cực; các từ còn lại lệch tầng nghĩa mô tả không khí gian bếp."
+                }
+            },
+
+            // EXERCISE 9
+            {
+                id: 48,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "The trip left me with very impressive and ________ memories. (forget)",
+                options: [
+                    { text: "A. forgetful", isCorrect: false },
+                    { text: "B. unforgettable", isCorrect: true },
+                    { text: "C. forgettable", isCorrect: false },
+                    { text: "D. forgetting", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chuyến đi đã để lại trong tớ những kỷ niệm vô cùng ấn tượng và không thể nào quên.",
+                    options: "Biến đổi từ gốc 'forget' thành tính từ phù hợp đi kèm danh từ kỷ niệm.",
+                    reason: "Vị trí đứng trước danh từ 'memories' và đẳng lập sau tính từ tích cực 'impressive' (ấn tượng) cần một Tính từ bổ nghĩa mang nghĩa tích cực. Từ 'forget' thêm tiền tố phủ định và hậu tố tính từ tạo thành 'unforgettable' (không thể nào quên, đáng nhớ suốt đời).",
+                    wrongReason: "forgetful chỉ tính từ của người hay quên trí nhớ kém; forgettable mang nghĩa tiêu cực là dễ quên, tầm thường."
+                }
+            },
+            {
+                id: 49,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "The scenery here makes me feel ________ and gentle. (peace)",
+                options: [
+                    { text: "A. peacefully", isCorrect: false },
+                    { text: "B. peace", isCorrect: false },
+                    { text: "C. peaceful", isCorrect: true },
+                    { text: "D. peacemaker", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Phong cảnh nơi đây khiến tớ cảm thấy bình yên và nhẹ nhàng.",
+                    options: "Biến đổi danh từ 'peace' thành tính từ đứng sau động từ chỉ cảm giác liên kết.",
+                    reason: "Đứng sau động từ liên kết chỉ cảm xúc 'feel' và nối với tính từ 'gentle' bằng liên từ 'and' bắt buộc vị trí trống phải là một Tính từ (Adjective). Tính từ của danh từ peace là 'peaceful' (bình yên, hòa bình).",
+                    wrongReason: "peacefully là trạng từ sai cú pháp sau động từ feel; peace là danh từ gốc."
+                }
+            },
+            {
+                id: 50,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "We saw some sea turtles. It was an ________ experience! (incredibly)",
+                options: [
+                    { text: "A. incredible", isCorrect: true },
+                    { text: "B. incredibly", isCorrect: false },
+                    { text: "C. incredibility", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chúng tớ đã nhìn thấy một vài chú rùa biển. Đó quả là một trải nghiệm đáng kinh ngạc/tuyệt vời!",
+                    options: "Biến đổi trạng từ 'incredibly' về dạng tính từ đứng trước bổ nghĩa danh từ.",
+                    reason: "Vị trí trống đứng ngay trước danh từ trung tâm 'experience' (trải nghiệm) nên bắt buộc phải điền một Tính từ (Adjective) để tạo thành cụm danh từ chuẩn ngữ pháp. Ta bỏ đuôi -ly của trạng từ đề bài cho để thu được tính từ 'incredible' (tuyệt vời, đáng kinh ngạc).",
+                    wrongReason: "Giữ nguyên trạng từ hoặc dùng danh từ là hoàn toàn sai quy tắc sắp đặt vị trí bổ ngữ danh từ."
+                }
+            },
+            {
+                id: 51,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "One ________ that captivated me three years ago and still does is the collection of small offshore islands. (attract)",
+                options: [
+                    { text: "A. attractive", isCorrect: false },
+                    { text: "B. attraction", isCorrect: true },
+                    { text: "C. attractively", isCorrect: false },
+                    { text: "D. attractiveness", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Một địa điểm thu hút/điểm du lịch đã hớp hồn tớ từ ba năm trước và cho đến nay vẫn vậy chính là bộ sưu tập các hòn đảo nhỏ ngoài khơi.",
+                    options: "Biến đổi động từ 'attract' thành danh từ đóng vai trò chủ từ.",
+                    reason: "Đứng đầu câu sau từ hạn định số đếm 'One' đóng vai trò làm chủ ngữ chính trước đại từ quan hệ 'that' bắt buộc phải là một Danh từ số ít (Noun). Thuật ngữ chỉ địa điểm danh lam thắng cảnh, điểm thu hút khách du lịch là 'attraction'. Do đó điền 'attraction'.",
+                    wrongReason: "attractive là tính từ; attractively là trạng từ; attractiveness là danh từ chỉ nét quyến rũ cơ thể sắc đẹp không hợp ngữ cảnh hòn đảo."
+                }
+            },
+            {
+                id: 52,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "Eating fresh food on the sea when the sun came down really went beyond my ________. (expect)",
+                options: [
+                    { text: "A. expectations", isCorrect: true },
+                    { text: "B. expect", isCorrect: false },
+                    { text: "C. expectant", isCorrect: false },
+                    { text: "D. expectedly", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Việc thưởng thức đồ ăn tươi sống trên biển khi hoàng hôn buông xuống thực sự đã vượt xa khỏi những kỳ vọng của tớ.",
+                    options: "Biến đổi động từ 'expect' thành danh từ đứng sau tính từ sở hữu.",
+                    reason: "Đứng đằng sau tính từ sở hữu 'my' và nằm trong thành ngữ cố định 'beyond one's expectations' (vượt ngoài mong đợi/kỳ vọng của ai đó) -> vị trí này bắt buộc là danh từ số nhiều 'expectations'.",
+                    wrongReason: "Các hình thức động từ, tính từ hoặc trạng từ khác đều phá vỡ cụm thành ngữ danh từ cố định này."
+                }
+            },
+            {
+                id: 53,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "This trip gave me the ________ to share my story with her as well. (opportune)",
+                options: [
+                    { text: "A. opportunistic", isCorrect: false },
+                    { text: "B. opportunity", isCorrect: true },
+                    { text: "C. opportunities", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chuyến đi này đã trao cho tớ cơ hội để chia sẻ câu chuyện của mình với cô ấy.",
+                    options: "Biến đổi gốc từ thành danh từ chỉ cơ hội đi sau mạo từ xác định.",
+                    reason: "Đứng sau mạo từ xác định 'the' và đứng trước cấu trúc động từ chỉ mục đích 'to share' cần một Danh từ (Noun). Từ chỉ cơ hội, dịp may biến đổi từ gốc từ đã cho là 'opportunity' (dạng số ít phù hợp nghĩa hành động đơn lẻ).",
+                    wrongReason: "opportunistic là tính từ mang nghĩa tiêu cực (cơ hội, trục lợi); dạng số nhiều opportunities chưa phù hợp mạo từ đi kèm ngữ cảnh."
+                }
+            },
+            {
+                id: 54,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "My first trip was very impressive and I could hardly have anything to ________ about the trip. (complaint)",
+                options: [
+                    { text: "A. complain", isCorrect: true },
+                    { text: "B. complaining", isCorrect: false },
+                    { text: "C. complained", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chuyến đi đầu tiên của tớ vô cùng ấn tượng và tớ hầu như không có bất kỳ điều gì để phàn nàn về nó cả.",
+                    options: "Biến đổi danh từ đề bài cho 'complaint' về dạng động từ nguyên mẫu.",
+                    reason: "Đứng đằng sau cấu trúc chỉ mục đích bổ nghĩa 'have anything to + V (nguyên mẫu)'. Đề bài đang cho sẵn danh từ có đuôi -t là 'complaint' (lời phàn nàn). Ta bỏ đuôi -t đi để thu được động từ nguyên mẫu gốc là 'complain' (phàn nàn).",
+                    wrongReason: "Giữ nguyên danh từ sau chữ 'to' hoặc chia đuôi -ing, -ed đều vi phạm cấu trúc ngữ pháp động từ nguyên thể chỉ mục đích."
+                }
+            },
+            {
+                id: 55,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "She smiled to hide her slight ________. (embarrass)",
+                options: [
+                    { text: "A. embarrassed", isCorrect: false },
+                    { text: "B. embarrassing", isCorrect: false },
+                    { text: "C. embarrassment", isCorrect: true },
+                    { text: "D. embarrassingly", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Cô ấy mỉm cười để che giấu đi sự ngượng ngùng/xấu hổ thoáng qua của mình.",
+                    options: "Biến đổi động từ 'embarrass' thành danh từ đứng cuối cụm từ sở hữu.",
+                    reason: "Đứng đằng sau tính từ sở hữu 'her' và tính từ bổ nghĩa 'slight' (nhẹ, thoáng qua) bắt buộc vị trí này phải là một Danh từ (Noun) chỉ cảm xúc tâm lý. Động từ embarrass thêm hậu tố -ment tạo thành danh từ 'embarrassment' (sự ngượng ngùng, xấu hổ).",
+                    wrongReason: "Tính từ đuôi -ed, -ing hoặc trạng từ đuôi -ly không có chức năng làm vật sở hữu đứng cuối cụm danh từ như vậy."
+                }
+            },
+            {
+                id: 56,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "The romantic evening cruise will be a ________ experience. (memory)",
+                options: [
+                    { text: "A. memorize", isCorrect: false },
+                    { text: "B. memorable", isCorrect: true },
+                    { text: "C. memorial", isCorrect: false },
+                    { text: "D. memorably", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Chuyến du thuyền lãng mạn vào buổi tối sẽ là một trải nghiệm đáng nhớ.",
+                    options: "Biến đổi danh từ 'memory' thành tính từ bổ nghĩa tính chất cho trải nghiệm.",
+                    reason: "Vị trí trống đứng trước danh từ trung tâm 'experience' cần một Tính từ (Adjective) mang nghĩa có tính chất ấn tượng, đáng ghi nhớ suốt đời. Danh từ memory chuyển đổi thành tính từ phù hợp ngữ cảnh là 'memorable' (đáng nhớ).",
+                    wrongReason: "memorize là động từ; memorial là danh từ đài tưởng niệm; memorably là trạng từ."
+                }
+            },
+            {
+                id: 57,
+                section: "Exercise 9: Use the correct form of the word given to complete each sentence.",
+                question: "The beauty of the countryside is beyond our ________. (imagine)",
+                options: [
+                    { text: "A. imaginative", isCorrect: false },
+                    { text: "B. imaginary", isCorrect: false },
+                    { text: "C. imagination", isCorrect: true },
+                    { text: "D. imagine", isCorrect: false }
+                ],
+                explanation: {
+                    translation: "Vẻ đẹp của vùng vùng quê này vượt ngoài sức tưởng tượng của chúng tôi.",
+                    options: "Biến đổi động từ 'imagine' thành danh từ nằm trong cụm từ cố định.",
+                    reason: "Đứng đằng sau tính từ sở hữu 'our' và nằm trong thành ngữ diễn đạt cực hạn 'beyond one's imagination' (vượt ngoài sức tưởng tượng của ai đó) -> Vị trí này bắt buộc điền danh từ 'imagination' (trí tưởng tượng).",
+                    wrongReason: "Các tính từ bổ nghĩa như imaginative (giàu trí tưởng tượng) hay imaginary (hư ảo, ảo tưởng) hoàn toàn lệch cấu trúc thành ngữ này."
+                }
+            }
+        ];
+
+        // --- KHỞI TẠO VÀ ĐỔ DỮ LIỆU LÊN GIAO DIỆN HỌC TẬP ---
+        const container = document.getElementById('quiz-container');
+        let currentSectionName = "";
+
+        // Hàm xáo trộn đáp án ngẫu nhiên tăng tính kích thích tư duy độc lập
+        function shuffleOptions(options) {
+            let shuffled = [...options];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        quizData.forEach((q, index) => {
+            if (q.section !== currentSectionName) {
+                currentSectionName = q.section;
+                const secTitle = document.createElement('div');
+                secTitle.className = 'section-title';
+                secTitle.innerText = currentSectionName;
+                container.appendChild(secTitle);
+            }
+
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.id = `card-${q.id}`;
+
+            const shuffledOpts = shuffleOptions(q.options);
+            let optionsHtml = '';
+            shuffledOpts.forEach(opt => {
+                optionsHtml += `<button class="option-btn" data-correct="${opt.isCorrect}" onclick="selectOption(this, ${q.id})">${opt.text}</button>`;
+            });
+
+            card.innerHTML = `
+                <div class="question-text"><strong>Câu ${index + 1}:</strong> ${q.question}</div>
+                <div class="options-container">${optionsHtml}</div>
+                <div class="explanation-box" id="exp-${q.id}">
+                    <div class="exp-section"><div class="exp-title">🌟 Dịch nghĩa câu hoàn chỉnh:</div><div class="exp-text">${q.explanation.translation}</div></div>
+                    <div class="exp-section"><div class="exp-title">💎 Phân tích ngữ liệu từ vựng:</div><div class="exp-text">${q.explanation.options}</div></div>
+                    <div class="exp-section"><div class="exp-title">✅ Tại sao chọn đáp án này?</div><div class="exp-text exp-highlight">${q.explanation.reason}</div></div>
+                    <div class="exp-section"><div class="exp-title">❌ Bản chất lỗi sai các câu khác:</div><div class="exp-text">${q.explanation.wrongReason}</div></div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // --- ĐIỀU HƯỚNG BẤM CHỌN ĐÁP ÁN ---
+        function selectOption(btn, qId) {
+            const card = document.getElementById(`card-${qId}`);
+            if (card.getAttribute('data-answered') === 'true') return;
+
+            const buttons = card.querySelectorAll('.option-btn');
+            const isCorrect = btn.getAttribute('data-correct') === 'true';
+
+            buttons.forEach(b => {
+                b.classList.add('disabled');
+                if (b.getAttribute('data-correct') === 'true') {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                playSound('correct');
+                createConfetti();
+            } else {
+                btn.classList.add('wrong');
+                card.classList.add('shake');
+                playSound('wrong');
+                setTimeout(() => card.classList.remove('shake'), 400);
+            }
+
+            document.getElementById(`exp-${qId}`).classList.add('active');
+            card.setAttribute('data-answered', 'true');
+            card.setAttribute('data-score', isCorrect ? '1' : '0');
+        }
+
+        // --- BÁO CÁO KẾT QUẢ CUỐI BÀI THI TỔNG LỰC ---
+        function gradeEntireQuiz() {
+            let totalQuestions = quizData.length;
+            let correctCount = 0;
+            let unansweredCount = 0;
+
+            quizData.forEach(q => {
+                const card = document.getElementById(`card-${q.id}`);
+                const score = card.getAttribute('data-score');
+                if (score === '1') correctCount++;
+                if (!card.getAttribute('data-answered')) unansweredCount++;
+            });
+
+            const percentage = (correctCount / totalQuestions) * 100;
+            document.getElementById('score-text').innerText = `${correctCount}/${totalQuestions}`;
+
+            let comment = "";
+            if (percentage < 50) {
+                comment = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ❤️";
+            } else if (percentage <= 80) {
+                comment = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau! ✨";
+            } else {
+                comment = "Làm tốt lắm, con cố gắng rinh điểm 10 ở lần sau nha! 🎉🏆";
+            }
+
+            if (unansweredCount > 0) {
+                comment += `\n(Lưu ý: Con còn bỏ sót ${unansweredCount} câu chưa làm đáp án kìa!)`;
+            }
+
+            document.getElementById('comment-text').innerText = comment;
+            document.getElementById('result-modal').style.display = 'flex';
+
+            if (percentage >= 60) {
+                createConfetti();
+                setTimeout(createConfetti, 300);
+            }
+        }
+
+        function closeResultModal() {
+            document.getElementById('result-modal').style.display = 'none';
+        }
+
+        function CollegeRandom(min, max) { return Math.random() * (max - min) + min; }
+
+        // --- HIỆU ỨNG CANVAS PHÁO HOA GIẤY ---
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettis = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                confettis.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: CollegeRandom(6, 12),
+                    d: Math.random() * canvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+                    tilt: CollegeRandom(-10, 10),
+                    tiltAngleIncremental: CollegeRandom(-0.04, 0.04),
+                    tiltAngle: 0
+                });
+            }
+        }
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettis.forEach((c, index) => {
+                c.tiltAngle += c.tiltAngleIncremental;
+                c.y += (Math.cos(c.d) + 3 + c.r / 2) / 2;
+                c.x += Math.sin(c.tiltAngle);
+                c.tilt = Math.sin(c.tiltAngle - index / 3) * 15;
+
+                if (c.y > canvas.height) {
+                    confettis.splice(index, 1);
+                    return;
+                }
+
+                ctx.beginPath();
+                ctx.lineWidth = c.r / 2;
+                ctx.strokeStyle = c.color;
+                ctx.moveTo(c.x + c.tilt + c.r / 2, c.y);
+                ctx.lineTo(c.x + c.tilt, c.y + c.tilt + c.r / 2);
+                ctx.stroke();
+            });
+            requestAnimationFrame(drawConfetti);
+        }
+        drawConfetti();
+    </script>
+</body>
+</html>
